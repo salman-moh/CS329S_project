@@ -7,3 +7,8 @@ Diabetes is a really prominent disease in society, with over 400 million having 
 
 https://www.who.int/news-room/fact-sheets/detail/diabetes
 https://pro.aace.com/disease-state-resources/diabetes/depth-information/burden-type-1-diabetes
+
+
+#### System Architecture:
+
+![alt text](https://github.com/salman-moh/CS329S_project/blob/main/image.jpg?raw=true)
