@@ -12,3 +12,7 @@ https://pro.aace.com/disease-state-resources/diabetes/depth-information/burden-t
 #### System Architecture:
 
 ![alt text](https://github.com/salman-moh/CS329S_project/blob/main/image.jpg?raw=true)
+
+### Demo:
+https://user-images.githubusercontent.com/31631107/157775176-9e494fbc-09b5-44a3-85d5-6d1edc2c4267.mp4
+
