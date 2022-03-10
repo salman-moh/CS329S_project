@@ -1,4 +1,5 @@
-# CS329S_project
+# Insulin2Image Estimator
+### CS329S project
 My team created an Image2Insulin application for diabetes patients to use and get thier insulin dosages.
 
 Introduction:
