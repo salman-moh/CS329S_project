@@ -40,8 +40,7 @@ Our approach for the modeling is to use an objection detection model. The reason
 
 For the MVP, we restored to using a pretrained model, that we got from Benny Cheung, the author of this [blog post](http://bennycheung.github.io/yolo-for-real-time-food-detection). This model is a Yolov2 (You Only Look Once) object detection model. We used this approach to simply get a functioning MVP out as soon as possible. However, because we did not know the training, validation and testing splits, we could not get any meaningful evaluation out of this model. Our empirical evaluation indicated that the model could be improved, so we instead put our efforts into training our own model.
 
-###### Second iteration - Yolov5 Model Size Comparison
-
+**Second iteration - Yolov5 Model Size Comparison**
 In order to develop our own model, we used YOLOv5 which aims to be faster and more accurate than the version 2 object detection model. We used transfer learning to train the model for our use case, the pretrained weights were on COCO dataset and using a batch size of 16 (due to VRAM limitation), 300 epochs we were able to hit 60% Precision (as shown in table below). We trained three different versions of the model, nano, small and medium. By training different model sizes, we can compare the performance in terms of precision, recall and latency, as discussed in the System Evaluation section.
 
 We wanted different options for our system, we use 3 different model sizes of YOLOv5. Our training set ~10,200 images and a test set ~ 1,200 images. We did not do any hyperparameter tuning to save time and compute cost, hence did not use a validation set. The result on the test set was the following:
@@ -51,7 +50,7 @@ We wanted different options for our system, we use 3 different model sizes of YO
 
 ## System evaluation
 
-###### Online System Evaluation
+**Online System Evaluation**
 
 For the online evaluation, we have built a monitoring dashboard that tracks how the system is performing. In order to have some data to showcase in the dashboard, manually input 90 images from the test set for each of the model sizes we trained for.
 
