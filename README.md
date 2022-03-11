@@ -38,7 +38,7 @@ Our approach for the modeling is to use an objection detection model. The reason
 
 #### First iteration - MVP Yolov2 Pretrained
 
-For the MVP, we restored to using a pretrained model, that we got from Benny Cheung, the author of this [blog post](http://bennycheung.github.io/yolo-for-real-time-food-detection). This model is a Yolov2 (You Only Look Once) object detection model. We used this approach to simply get a functioning MVP out as soon as possible. However, because we did not know the training, validation and testing splits, we could not get any meaningful evaluation out of this model. Our empirical evaluation indicated that the model could be improved, so we instead put our efforts into training our own model.
+For the MVP, we used a pretrained model, that we got from Benny Cheung, the author of this [blog post](http://bennycheung.github.io/yolo-for-real-time-food-detection). This model is a Yolov2 (You Only Look Once) object detection model. We used this approach to simply get a functioning MVP out as soon as possible. However, because we did not know the training, validation and testing splits, we could not get any meaningful evaluation out of this model. Our empirical evaluation indicated that the model could be improved, so we instead put our efforts into training our own model.
 
 #### Second iteration - Yolov5 Model Size Comparison
 
