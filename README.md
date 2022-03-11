@@ -1,6 +1,6 @@
 # ImageToInsulin Estimator
 
-### Problem definition
+## Problem definition
 
 All of those that have type 1 diabetes (over 20 million people worldwide, [1](https://pro.aace.com/disease-state-resources/diabetes/depth-information/burden-type-1-diabetes
 )), and certain people with type diabetes need to manually inject insulin for each meal they eat, based on the amount of carbohydrates (carbs) in the meal. They therefore either need to learn the carb percentages of many different foods, or to look them up by hand each time they eat something. This is obviously very time consuming and difficult. We propose a computer vision based solution, where the carb percentages can be calculated from a photo of a meal. We also calculate an estimated insulin dosage if the users input the weights of the different foods and their insulin factor. Our solution can therefore speed up insulin dosage calculation and does not require any manual calculation using the insulin factor, which makes the day-to-day life of those with diabetes easier.
@@ -32,11 +32,11 @@ Lastly, we gather data from the interaction with the user, which we save in a cl
 
 We use the [UECFOOD 100 dataset](http://foodcam.mobi/dataset.html). The dataset contains about 100 different foods and about 100 images of each food. The foods consist of many japanese dishes (ramen noodle, miso soup) but also some western dishes (croissant, hamburger). Many images have several different foods in them.
 
-###### Model iterations
+#### Model iterations
 
 Our approach for the modeling is to use an objection detection model. The reason for this is that we want to be able to identify multiple food items in a given meal. The bounding boxes that the object detection model generates are not of direct interest to us in this project, as we are simply interested in the identified objects. They do open up possibilities to possibly estimate volume if the application was extended.
 
-###### First iteration - MVP Yolov2 Pretrained
+### First iteration - MVP Yolov2 Pretrained
 
 For the MVP, we restored to using a pretrained model, that we got from Benny Cheung, the author of this [blog post](http://bennycheung.github.io/yolo-for-real-time-food-detection). This model is a Yolov2 (You Only Look Once) object detection model. We used this approach to simply get a functioning MVP out as soon as possible. However, because we did not know the training, validation and testing splits, we could not get any meaningful evaluation out of this model. Our empirical evaluation indicated that the model could be improved, so we instead put our efforts into training our own model.
 
