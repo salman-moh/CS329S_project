@@ -129,6 +129,7 @@ The steps that a user takes when interacting with the application are the follow
 5. The user presses submit, and the estimated insulin dosage is displayed
 
 These steps can be seen in the following video:
+
 https://youtu.be/rAwQsCBgmC4
 
 Our main use case is for people with diabetes to use our application whenever they eat something. As such, it will be easiest for them to use it through their phone. Our first approach was therefore to try and build a mobile phone application. This however turned out to be extremely difficult given that we did not have any previous experience developing mobile phone applications, which is why we changed to a web application. A web application can also be accessed from a mobile phone, which means that the usability is not reduced by a very significant amount. We discuss this further in the Reflection section.
