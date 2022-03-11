@@ -80,7 +80,8 @@ In our analysis, we then select some of the entries with the highest insulin dos
 
 ![Entries with highest insulin dosage](final_report_images/entries.png)
 
-AI System Evaluation vs Manual Legacy Evaluation:
+#### AI System Evaluation vs Manual Legacy Evaluation:
+
 An additional test we did of our whole system was an end-to-end test, with a comparison to a calculation done without the use of our webapp.
 
 We consider the following input image and food weights:
