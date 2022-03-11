@@ -28,7 +28,7 @@ Lastly, we gather data from the interaction with the user, which we save in a cl
 
 ### Machine learning component
 
-###### Dataset
+##### Dataset
 
 We use the [UECFOOD 100 dataset](http://foodcam.mobi/dataset.html). The dataset contains about 100 different foods and about 100 images of each food. The foods consist of many japanese dishes (ramen noodle, miso soup) but also some western dishes (croissant, hamburger). Many images have several different foods in them.
 
