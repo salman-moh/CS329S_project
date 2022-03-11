@@ -45,6 +45,7 @@ For the MVP, we restored to using a pretrained model, that we got from Benny Che
 In order to develop our own model, we used YOLOv5 which aims to be faster and more accurate than the version 2 object detection model. We used transfer learning to train the model for our use case, the pretrained weights were on COCO dataset and using a batch size of 16 (due to VRAM limitation), 300 epochs we were able to hit 60% Precision (as shown in table below). We trained three different versions of the model, nano, small and medium. By training different model sizes, we can compare the performance in terms of precision, recall and latency, as discussed in the System Evaluation section.
 
 We wanted different options for our system, we use 3 different model sizes of YOLOv5. Our training set ~10,200 images and a test set ~ 1,200 images. We did not do any hyperparameter tuning to save time and compute cost, hence did not use a validation set. The result on the test set was the following:
+
 ![Model Evaluation Table](final_report_images/model_eval_table.jpg)
 
 
@@ -56,12 +57,15 @@ We wanted different options for our system, we use 3 different model sizes of YO
 For the online evaluation, we have built a monitoring dashboard that tracks how the system is performing. In order to have some data to showcase in the dashboard, manually input 90 images from the test set for each of the model sizes we trained for.
 
 In the monitoring dashboard, there is an option to choose between either a Developer’s View or Business' View.
+
 ![Dashboard](final_report_images/dashboard.png)
 
 In Business’ View there is quick info of the performance of the latest 10 samples.
+
 ![Quick info](final_report_images/quick_inf.png)
 
 There are also graphs of Precision and Latency over time, as well as histograms such as this one
+
 ![Histograms](final_report_images/histograms.png)
 
 In the developer's view, there is more detailed information about the latency and precision of the different model sizes that we have trained.
@@ -69,6 +73,7 @@ In the developer's view, there is more detailed information about the latency an
 Based on what we have seen in all of these plots, the system performs well compared to what we expect.
 
 We also choose to dive deeper into one output in particular, the insulin dosage. We plot this in a histogram, which yielded the following result:
+
 ![Insulin dosage histogram](final_report_images/insulin_dos_hist.png)
 
 In our analysis, we then select some of the entries with the highest insulin dosage amount. By studying these entries in particular, we could find that most of the high insulin values were created by very big portions of pizza combined with a high insulin factor. We could manually verify that these calculations actually were correct. However, we also found a bug where we got a too high carb percentage value for ramen noodles from our database. Upon further inspection, we realized that we got the uncooked ramen noodle value rather than the cooked value, which has a much higher carb percentage.
@@ -79,25 +84,31 @@ AI System Evaluation vs Manual Legacy Evaluation:
 An additional test we did of our whole system was an end-to-end test, with a comparison to a calculation done without the use of our webapp.
 
 We consider the following input image and food weights:
+
 ![Image of food](final_report_images/food_img.jpg)
+
 - Green Salad: 60
 - Miso soup: 40
 - Beef bowl: 300 (whereof rice 150g)
 
 Our system gives the output:
+
 ![Application calculation output](final_report_images/app_calc.png)
 
 With the estimated insulin dosage being 4.94 units.
 
 We also asked someone with diabetes to do this by hand. Their approach was to mainly consider rice, which will be by far the ingredient that adds by far the most amount of carbs. They used another (Swedish) site to find the carb percentage of rice.
+
 ![Carh percentage of rice from website](final_report_images/livsmedelverk.png)
 
 They then calculated the amount of carbs given the rice weight and the carb percentage.
+
 ![Computer calculation showing 150 x 0.259 = 38.85](final_report_images/miniraknar_calc.png)
 
 The next step was that they arbitrarily added 10 grams of carbs for the beef sauce and the corn, without considering these in too much detail. This meant that the total amount of carbs were considered as 49 grams.
 
 Finally, this user had an insulin pump, and input the carb amount there
+
 ![Insulin pump calculation](final_report_images/pump_calc.jpg)
 
 Which yielded the insulin dosage 5.16. This value is close to the value of our application (4.94) and serves as a reality check that our application works as intended for this example.
@@ -111,7 +122,7 @@ We have some inherent limitations to our system, based on the external resources
 
 The steps that a user takes when interacting with the application are the following:
 1. The user uploads an image to the website
-2. The insulin factor can be entered into the website. This should be         calculated by the person with diabetes together with a nurse
+2. The insulin factor can be entered into the website. This should be calculated by the person with diabetes together with a nurse
 3. The user accepts all images that are found in the image. This steps verifies that the foods that have been found are correct
 4. The next step is then to add the weights of all the different food items
 5. The user presses submit, and the estimated insulin dosage is displayed
