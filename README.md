@@ -64,7 +64,7 @@ In Business’ View there is quick info of the performance of the latest 10 samp
 
 ![Quick info](final_report_images/quick_inf.png)
 
-There are also graphs of Precision and Latency over time, as well as histograms such as this one
+There are also graphs of Precision and Latency over time, as well as histograms such as these
 
 ![Histograms](final_report_images/histograms.png)
 
