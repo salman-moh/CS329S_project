@@ -10,7 +10,7 @@ There have been other approaches to this problem, such as fitness apps that atte
 There has also been scientific research that explores the topic of estimating carb amounts based on images. Most of these try to use volume approximation methods to get exact nutrition information from a meal, and are only research papers rather than easily accessible services as ours [3](https://ieeexplore.ieee.org/document/7520547), [4](https://ieeexplore.ieee.org/document/6701615), [5](https://news.mit.edu/2022/all-one-diabetes-insulin-0120).
 
 
-### System design
+## System design
 
 ![System Overview Diagram](final_report_images/sys_overview.JPG)
 
@@ -26,9 +26,9 @@ At the same time as we gather the carb percentages, we also ask the users to ver
 
 Lastly, we gather data from the interaction with the user, which we save in a cloud NoSQL database called [MongoDB Atlas](https://www.mongodb.com/atlas/). The data in this database can then be accessed from anywhere to launch a performance monitoring dashboard, that is written in Streamlit, that can showcase the online performance. MongoDB Atlas was very convenient to set up, and suits our needs very well. It has enough storage capacity, and it is fast and easy to use. Streamlit was also very well suited for showcasing what we want to show. We wanted the Streamlit script to be able to be launched from anywhere, so that many different stakeholders could access it, by still using the same source of truth for the visualization, which is why we chose to do it this way. It would also have been possible to launch it as a website that people could access. The approach of having each stakeholder launch it locally enables them to potentially modify their local dashboard file, if they are interested in looking at some particular aspect of the online data, which we think is very beneficial.
 
-### Machine learning component
+## Machine learning component
 
-##### Dataset
+#### Dataset
 
 We use the [UECFOOD 100 dataset](http://foodcam.mobi/dataset.html). The dataset contains about 100 different foods and about 100 images of each food. The foods consist of many japanese dishes (ramen noodle, miso soup) but also some western dishes (croissant, hamburger). Many images have several different foods in them.
 
@@ -36,11 +36,12 @@ We use the [UECFOOD 100 dataset](http://foodcam.mobi/dataset.html). The dataset 
 
 Our approach for the modeling is to use an objection detection model. The reason for this is that we want to be able to identify multiple food items in a given meal. The bounding boxes that the object detection model generates are not of direct interest to us in this project, as we are simply interested in the identified objects. They do open up possibilities to possibly estimate volume if the application was extended.
 
-### First iteration - MVP Yolov2 Pretrained
+#### First iteration - MVP Yolov2 Pretrained
 
 For the MVP, we restored to using a pretrained model, that we got from Benny Cheung, the author of this [blog post](http://bennycheung.github.io/yolo-for-real-time-food-detection). This model is a Yolov2 (You Only Look Once) object detection model. We used this approach to simply get a functioning MVP out as soon as possible. However, because we did not know the training, validation and testing splits, we could not get any meaningful evaluation out of this model. Our empirical evaluation indicated that the model could be improved, so we instead put our efforts into training our own model.
 
-**Second iteration - Yolov5 Model Size Comparison**
+#### Second iteration - Yolov5 Model Size Comparison
+
 In order to develop our own model, we used YOLOv5 which aims to be faster and more accurate than the version 2 object detection model. We used transfer learning to train the model for our use case, the pretrained weights were on COCO dataset and using a batch size of 16 (due to VRAM limitation), 300 epochs we were able to hit 60% Precision (as shown in table below). We trained three different versions of the model, nano, small and medium. By training different model sizes, we can compare the performance in terms of precision, recall and latency, as discussed in the System Evaluation section.
 
 We wanted different options for our system, we use 3 different model sizes of YOLOv5. Our training set ~10,200 images and a test set ~ 1,200 images. We did not do any hyperparameter tuning to save time and compute cost, hence did not use a validation set. The result on the test set was the following:
@@ -50,7 +51,7 @@ We wanted different options for our system, we use 3 different model sizes of YO
 
 ## System evaluation
 
-**Online System Evaluation**
+#### Online System Evaluation
 
 For the online evaluation, we have built a monitoring dashboard that tracks how the system is performing. In order to have some data to showcase in the dashboard, manually input 90 images from the test set for each of the model sizes we trained for.
 
@@ -101,12 +102,12 @@ Finally, this user had an insulin pump, and input the carb amount there
 
 Which yielded the insulin dosage 5.16. This value is close to the value of our application (4.94) and serves as a reality check that our application works as intended for this example.
 
-###### Limitations
+#### Limitations
 
 We have some inherent limitations to our system, based on the external resources we use. One limitation is that we can only predict the foods that we have been able to train on in our dataset. Additionally, we needed to make sure that all foods in our dataset have good data from the USDA nutrient database. After checking this, we found that 7 labels from the dataset did not have a good counterpart in the database. These were dishes such as “jiaozi” and “nanbanzuke” that might not be common in the US.
 
 
-### Application demonstration
+## Application demonstration
 
 The steps that a user takes when interacting with the application are the following:
 1. The user uploads an image to the website
@@ -121,16 +122,16 @@ https://youtu.be/rAwQsCBgmC4
 Our main use case is for people with diabetes to use our application whenever they eat something. As such, it will be easiest for them to use it through their phone. Our first approach was therefore to try and build a mobile phone application. This however turned out to be extremely difficult given that we did not have any previous experience developing mobile phone applications, which is why we changed to a web application. A web application can also be accessed from a mobile phone, which means that the usability is not reduced by a very significant amount. We discuss this further in the Reflection section.
 
 
-### Reflection
+## Reflection
 
-###### What worked well
+#### What worked well
 
 Overall, we are quite pleased with the overall structure of our application. It feels like it has a reasonable flow of information, that is cloud-based and scalable. We are satisfied with the way we query nutrient information using our cached data, to reduce latency.
 
 We are also satisfied with how MongoDB Atlas, Streamlit and Yolov5 have worked. They have been convenient tools that have enabled us to quickly build the product that we wanted.
 
 
-###### What didn’t work well
+#### What didn’t work well
 
 The dataset that we used has not been great for our purposes. It contains quite a lot of data, but we have seen that there are cases where certain classes are missing. The foods are also centered around Japanese dishes, which are less common here in the US.
 
@@ -139,7 +140,7 @@ On a team level, we have been a bit hindered by the fact that we all live in dif
 We spent a lot of time trying to build a mobile application, before changing to a web application. A mobile application has an even more appealing use case, but the difficulty of building it turned out to be too much, and we would rather focus on making the best possible ML system. Had we redone the project, we would not have spent so much time on the mobile application.
 
 
-###### What would you add to your application
+#### What would you add to your application
 
 Two small improvements that could be added quite easily would be to save the images the users upload, so that we could eventually use them as training data. The main reason as to why we did not implement this right away is that we are training an object detection model, so we would need bounding box labels, which we do not get from the user interaction. It would also be beneficial to create the possibility for users to add food items that were not detected by the model. In part this would give us access to statistics of false negatives and additionally enable users to add them to the insulin calculation which would be good from a user experience point of view.
 
@@ -152,7 +153,7 @@ With more time and ideally some previous experience with mobile development, we 
 
 Second of all, it would have been really interesting to further explore how we could have calculated the weight of the food from images alone. We thoroughly explored possibilities to do this at the start of the project and found that it is difficult to do it accurately using mathematical methods, but if we would have had the resources to create a dataset with food weights recorded, it could likely be achieved in a satisfactory manner.
 
-### Broader Impacts
+## Broader Impacts
 
 The intended use of our application is almost only for people with diabetes to check how much insulin they need to inject for a given meal. It could quite easily be extended to showcase more nutrition information, which would enable use for gym goers who want to count macronutrients as part of their diet for example. However, there is a lot more competition with regards to such apps, so it is not as relevant for us.
 
